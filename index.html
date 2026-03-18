@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Airtel Money · Africa Intelligence Brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:#0a0a0a;color:#f0ede8;font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:999;opacity:.3;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");}
+.masthead{position:relative;overflow:hidden;border-bottom:1px solid rgba(255,255,255,.07);}
+.masthead-bg{position:absolute;inset:0;background:linear-gradient(135deg,#1a0000 0%,#0a0a0a 55%,#001209 100%);}
+.masthead-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(232,37,26,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(232,37,26,.035) 1px,transparent 1px);background-size:56px 56px;}
+.masthead-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:40px 40px 34px;}
+.mast-top{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:18px;margin-bottom:30px;}
+.logo-row{display:flex;align-items:center;gap:13px;}
+.logo-icon{width:42px;height:42px;background:#E8251A;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 0 28px rgba(232,37,26,.3);flex-shrink:0;}
+.logo-name{font-size:13px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#f0ede8;}
+.logo-sub{font-size:11px;color:#666;letter-spacing:.05em;margin-top:2px;}
+.live-badge{display:flex;flex-direction:column;align-items:flex-end;gap:4px;}
+.live-row{display:inline-flex;align-items:center;gap:6px;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#888;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:pdot 2s ease-in-out infinite;}
+@keyframes pdot{0%,100%{box-shadow:0 0 0 0 rgba(74,222,128,.5);}50%{box-shadow:0 0 0 5px rgba(74,222,128,0);}}
+.live-clock{font-family:'DM Mono',monospace;font-size:12px;color:#444;}
+.mast-headline{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(34px,5.5vw,70px);line-height:1.0;letter-spacing:-.02em;margin-bottom:10px;}
+.mast-headline em{color:#E8251A;font-style:normal;}
+.mast-sub{font-size:13px;color:#777;letter-spacing:.04em;margin-bottom:26px;}
+.country-row{display:flex;gap:8px;flex-wrap:wrap;}
+.cpill{font-size:11px;padding:5px 13px;border-radius:20px;border:1px solid rgba(255,255,255,.08);color:#777;letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.02);transition:all .2s;cursor:default;}
+.cpill:hover{border-color:#E8251A;color:#f0ede8;background:rgba(232,37,26,.1);}
+.ctrl-bar{background:#141414;border-bottom:1px solid rgba(255,255,255,.07);position:sticky;top:0;z-index:100;}
+.ctrl-inner{max-width:1200px;margin:0 auto;padding:12px 40px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.fetch-btn{display:inline-flex;align-items:center;gap:8px;padding:9px 20px;background:#E8251A;color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;cursor:pointer;letter-spacing:.02em;transition:all .2s;box-shadow:0 0 18px rgba(232,37,26,.25);}
+.fetch-btn:hover{background:#c01f14;transform:translateY(-1px);}
+.fetch-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+.ed-select{background:#1c1c1c;color:#f0ede8;border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:8px 12px;font-family:'DM Sans',sans-serif;font-size:13px;cursor:pointer;outline:none;}
+.ed-select:focus{border-color:#E8251A;}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-left:auto;}
+.fp{font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid rgba(255,255,255,.07);background:transparent;color:#888;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.fp:hover{border-color:rgba(255,255,255,.18);color:#f0ede8;}
+.fp.on{border-color:#E8251A;color:#f0ede8;background:rgba(232,37,26,.12);}
+.spinner{width:14px;height:14px;border:2px solid rgba(255,255,255,.25);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.prog-track{height:2px;background:#1c1c1c;overflow:hidden;}
+.prog-fill{height:100%;width:0%;background:linear-gradient(90deg,#b01a11,#E8251A,#ff6b5b);transition:width .35s ease;}
+.main{max-width:1200px;margin:0 auto;padding:36px 40px 80px;}
+.stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden;margin-bottom:34px;}
+.stat-box{background:#141414;padding:18px 22px;text-align:center;}
+.stat-n{font-family:'Playfair Display',serif;font-size:30px;font-weight:700;color:#f0ede8;line-height:1;margin-bottom:4px;}
+.stat-l{font-size:11px;color:#555;letter-spacing:.05em;}
+.hero-card{position:relative;border-radius:16px;overflow:hidden;margin-bottom:28px;background:#141414;border:1px solid rgba(255,255,255,.07);display:grid;grid-template-columns:1fr 420px;min-height:340px;cursor:pointer;transition:border-color .2s;animation:fup .5s ease forwards;}
+.hero-card:hover{border-color:rgba(255,255,255,.16);}
+@keyframes fup{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+.hero-body{padding:34px;display:flex;flex-direction:column;justify-content:flex-end;z-index:2;}
+.hero-img-col{position:relative;overflow:hidden;}
+.hero-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s ease;}
+.hero-card:hover .hero-img{transform:scale(1.05);}
+.hero-img-fade{position:absolute;inset:0;background:linear-gradient(to right,#141414 0%,transparent 55%);z-index:1;}
+.hero-img-ph{width:100%;height:100%;background:#1c1c1c;display:flex;align-items:center;justify-content:center;font-size:56px;opacity:.25;}
+.hero-title{font-family:'Playfair Display',serif;font-weight:900;font-size:clamp(18px,2.5vw,26px);line-height:1.3;color:#f0ede8;margin-bottom:12px;}
+.hero-summary{font-size:13px;line-height:1.75;color:#888;margin-bottom:18px;}
+.hero-foot{display:flex;align-items:center;justify-content:space-between;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);}
+.hero-source{font-family:'DM Mono',monospace;font-size:11px;color:#444;}
+.hero-date{font-family:'DM Mono',monospace;font-size:11px;color:#555;}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;}
+.ncard{background:#141414;border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:all .25s;animation:fup .5s ease both;}
+.ncard:hover{border-color:rgba(255,255,255,.15);transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,.45);}
+.img-wrap{height:175px;overflow:hidden;background:#1c1c1c;flex-shrink:0;position:relative;}
+.cimg{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease;}
+.ncard:hover .cimg{transform:scale(1.07);}
+.img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:40px;opacity:.25;}
+.nbody{padding:18px;display:flex;flex-direction:column;flex:1;}
+.tag-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;}
+.tag{font-size:10px;padding:3px 8px;border-radius:10px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;}
+.t-competition{background:rgba(232,37,26,.13);color:#ff8a7a;border:1px solid rgba(232,37,26,.22);}
+.t-trends{background:rgba(96,165,250,.1);color:#93c5fd;border:1px solid rgba(96,165,250,.18);}
+.t-opportunities{background:rgba(74,222,128,.09);color:#86efac;border:1px solid rgba(74,222,128,.18);}
+.t-telecom{background:rgba(201,168,76,.1);color:#e8c97a;border:1px solid rgba(201,168,76,.18);}
+.t-country{background:rgba(255,255,255,.04);color:#666;border:1px solid rgba(255,255,255,.07);}
+.ntitle{font-family:'Playfair Display',serif;font-weight:700;font-size:15px;line-height:1.4;color:#f0ede8;margin-bottom:8px;flex:1;}
+.nsum{font-size:12.5px;line-height:1.7;color:#777;margin-bottom:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;}
+.nfoot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid rgba(255,255,255,.06);margin-top:auto;}
+.nsource{font-family:'DM Mono',monospace;font-size:10.5px;color:#444;}
+.ndate{font-family:'DM Mono',monospace;font-size:10.5px;color:#444;}
+.sec-label{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#444;margin:32px 0 16px;display:flex;align-items:center;gap:12px;}
+.sec-label::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.06);}
+.meta-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:8px;}
+.meta-count{font-size:13px;color:#777;}
+.meta-time{font-family:'DM Mono',monospace;font-size:11px;color:#444;}
+.empty{text-align:center;padding:80px 20px;color:#555;}
+.empty-icon{font-size:52px;margin-bottom:16px;opacity:.4;}
+.empty-txt{font-size:15px;color:#666;}
+.empty-txt strong{color:#f0ede8;}
+.err-box{background:rgba(232,37,26,.07);border:1px solid rgba(232,37,26,.18);border-radius:10px;padding:24px;color:#ff8a7a;font-size:14px;text-align:center;line-height:1.7;}
+.err-box a{color:#ff8a7a;}
+.site-footer{border-top:1px solid rgba(255,255,255,.06);padding:26px 40px;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.ft-brand{font-size:13px;color:#444;}
+.ft-brand span{color:#E8251A;}
+.ft-note{font-family:'DM Mono',monospace;font-size:11px;color:#333;}
+@media(max-width:900px){
+  .hero-card{grid-template-columns:1fr;}
+  .hero-img-col{height:200px;}
+  .hero-img-fade{background:linear-gradient(to top,#141414 0%,transparent 60%);}
+  .grid{grid-template-columns:repeat(2,1fr);}
+  .masthead-inner,.main,.ctrl-inner{padding-left:20px;padding-right:20px;}
+  .stats-bar{grid-template-columns:repeat(2,1fr);}
+  .filters{margin-left:0;}
+  .site-footer{padding:20px;}
+}
+@media(max-width:580px){
+  .grid{grid-template-columns:1fr;}
+  .mast-headline{font-size:30px;}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-bg"></div>
+  <div class="masthead-grid"></div>
+  <div class="masthead-inner">
+    <div class="mast-top">
+      <div class="logo-row">
+        <div class="logo-icon">⚡</div>
+        <div>
+          <div class="logo-name">Airtel Money</div>
+          <div class="logo-sub">Intelligence Brief · Africa Growth Division</div>
+        </div>
+      </div>
+      <div class="live-badge">
+        <div class="live-row"><div class="live-dot"></div>Live Feed</div>
+        <div class="live-clock" id="liveClock">—</div>
+      </div>
+    </div>
+    <div class="mast-headline">Africa <em>Fintech</em><br/>Intelligence</div>
+    <div class="mast-sub">Curated twice-daily · Digital Money · Telecom · Growth across Sub-Saharan Africa</div>
+    <div class="country-row">
+      <span class="cpill">🇹🇿 Tanzania</span>
+      <span class="cpill">🇲🇼 Malawi</span>
+      <span class="cpill">🇬🇦 Gabon</span>
+      <span class="cpill">🇨🇬 Congo Republic</span>
+      <span class="cpill">🌍 Regional</span>
+    </div>
+  </div>
+</header>
+
+<div class="ctrl-bar">
+  <div class="ctrl-inner">
+    <button class="fetch-btn" id="fetchBtn" onclick="loadFeed()">
+      <span id="btnIcon">⚡</span>
+      <span id="btnLabel">Load Latest Brief</span>
+    </button>
+    <select class="ed-select" id="edSel">
+      <option value="morning">☀️ Morning Edition</option>
+      <option value="evening">🌙 Evening Edition</option>
+    </select>
+    <div class="filters">
+      <button class="fp on" onclick="setF('all',this)">All</button>
+      <button class="fp" onclick="setF('competition',this)">Competition</button>
+      <button class="fp" onclick="setF('trends',this)">Trends</button>
+      <button class="fp" onclick="setF('opportunities',this)">Opportunities</button>
+      <button class="fp" onclick="setF('telecom',this)">Telecom</button>
+    </div>
+  </div>
+  <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+</div>
+
+<main class="main">
+  <div class="stats-bar" id="statsBar" style="display:none">
+    <div class="stat-box"><div class="stat-n" id="sTotal">0</div><div class="stat-l">Stories Loaded</div></div>
+    <div class="stat-box"><div class="stat-n">4</div><div class="stat-l">Markets Covered</div></div>
+    <div class="stat-box"><div class="stat-n" id="sComp">0</div><div class="stat-l">Competitor Signals</div></div>
+    <div class="stat-box"><div class="stat-n" id="sOpp">0</div><div class="stat-l">Opportunities</div></div>
+  </div>
+  <div id="emptyState" class="empty">
+    <div class="empty-icon">⚡</div>
+    <div class="empty-txt">Press <strong>Load Latest Brief</strong> to fetch your personalized intelligence briefing.</div>
+  </div>
+  <div id="newsOut"></div>
+</main>
+
+<footer>
+  <div class="site-footer">
+    <div class="ft-brand">Airtel Money Intelligence Brief · <span>Africa Growth Division</span></div>
+    <div class="ft-note">Powered by live RSS · Works anywhere · No API key</div>
+  </div>
+</footer>
+
+<script>
+// ── CLOCK ─────────────────────────────────────────────────────────────────
+setInterval(()=>{
+  const d=new Date();
+  document.getElementById('liveClock').textContent=
+    d.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit',second:'2-digit'})+
+    ' · '+d.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+},1000);
+
+// ── CONFIG ────────────────────────────────────────────────────────────────
+// rss2json.com: free, CORS-friendly RSS proxy – no auth needed for public feeds
+const R2J = 'https://api.rss2json.com/v1/api.json?count=20&rss_url=';
+
+const FEEDS = [
+  {url:'https://techcabal.com/feed/',             src:'TechCabal',           cat:'trends'},
+  {url:'https://disrupt-africa.com/feed/',         src:'Disrupt Africa',      cat:'trends'},
+  {url:'https://www.itnewsafrica.com/feed/',       src:'IT News Africa',      cat:'telecom'},
+  {url:'https://www.theafricareport.com/feed/',    src:'The Africa Report',   cat:'trends'},
+  {url:'https://feeds.bbci.co.uk/news/world/africa/rss.xml', src:'BBC Africa',cat:'trends'},
+  {url:'https://www.gsma.com/newsroom/feed/',      src:'GSMA',                cat:'telecom'},
+  {url:'https://ventureburn.com/feed/',            src:'Ventureburn',         cat:'opportunities'},
+  {url:'https://www.african.business/feed',        src:'African Business',    cat:'opportunities'},
+  {url:'https://www.businessinsider.co.za/feed',   src:'Business Insider Africa', cat:'opportunities'},
+  {url:'https://www.mobileworldlive.com/feed/',    src:'Mobile World Live',   cat:'telecom'},
+];
+
+// ── KEYWORD CLASSIFICATION ────────────────────────────────────────────────
+const KW = {
+  competition:[
+    'm-pesa','mpesa','mtn mobile money','orange money','wave','tigo pesa','vodacom',
+    'safaricom','equitel','airtel money','competitor','market share','mobile money operator',
+    'rival','orange telecom','free mobile','moov','zamtel'
+  ],
+  telecom:[
+    'telecom','mno','spectrum','5g','4g','network','tower','mast','licence','regulatory',
+    'regulator','sim','subscriber','telecoms','broadband','fiber','lte','base station'
+  ],
+  opportunities:[
+    'opportunity','launch','expand','expansion','growth','investment','partnership',
+    'funding','raise','series a','series b','vc','acquisition','merger','fintech',
+    'startup','digital bank','neobank','agent banking','super app','micro-insurance',
+    'microfinance','savings','credit','loan','lending','merchant','pos terminal'
+  ],
+  trends:[
+    'digital payment','mobile payment','financial inclusion','remittance','wallet',
+    'cashless','blockchain','crypto','cbdc','open banking','api','embedded finance',
+    'insurtech','agritech','trend','report','study','survey','gdp','economy'
+  ],
+};
+const COUNTRY_KW = {
+  'Tanzania':    ['tanzania','dar es salaam','dodoma'],
+  'Malawi':      ['malawi','lilongwe','blantyre'],
+  'Gabon':       ['gabon','libreville','gabon'],
+  'Congo Republic': ['congo republic','republic of congo','brazzaville','congo-brazzaville'],
+  'Regional':    ['africa','sub-saharan','east africa','west africa','central africa','southern africa','pan-africa','continent'],
+};
+
+// Unsplash (free, no key) — random but topic-relevant
+const UNSPLASH = {
+  competition: ['mobile-banking','fintech','smartphone-payment','digital-money'],
+  trends:      ['africa-technology','mobile-technology','digital-africa','data'],
+  opportunities:['africa-business','investment','startup','market'],
+  telecom:     ['telecommunications','network','infrastructure','africa-mobile'],
+};
+function unsplash(cat,seed){
+  const q=UNSPLASH[cat]||UNSPLASH.trends;
+  return `https://source.unsplash.com/800x500/?${q[seed%q.length]}&${seed}`;
+}
+
+// ── HELPERS ────────────────────────────────────────────────────────────────
+function classify(text){
+  const t=text.toLowerCase();
+  let best='trends',top=0;
+  for(const[cat,kws] of Object.entries(KW)){
+    const s=kws.filter(k=>t.includes(k)).length;
+    if(s>top){top=s;best=cat;}
+  }
+  return best;
+}
+function getCountries(text){
+  const t=text.toLowerCase(),found=[];
+  for(const[country,kws] of Object.entries(COUNTRY_KW))
+    if(kws.some(k=>t.includes(k)))found.push(country);
+  return found.length?found:['Regional'];
+}
+function isRelevant(text){
+  const t=text.toLowerCase();
+  return Object.values(KW).flat().some(k=>t.includes(k));
+}
+function strip(html){
+  const d=document.createElement('div');
+  d.innerHTML=html||'';
+  return d.textContent.replace(/\s+/g,' ').slice(0,260).trim();
+}
+function fmtDate(str){
+  try{return new Date(str).toLocaleDateString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});}
+  catch{return '';}
+}
+function catEmoji(c){return{competition:'⚔️',trends:'📈',opportunities:'🚀',telecom:'📡'}[c]||'📰';}
+function buildTags(item){
+  const labels={competition:'Competition',trends:'Trend',opportunities:'Opportunity',telecom:'Telecom'};
+  let h=`<span class="tag t-${item.category}">${labels[item.category]}</span>`;
+  (item.countries||[]).slice(0,2).forEach(c=>h+=`<span class="tag t-country">${c}</span>`);
+  return h;
+}
+
+// ── FETCH ONE FEED ─────────────────────────────────────────────────────────
+async function fetchFeed(feed){
+  try{
+    const r=await fetch(R2J+encodeURIComponent(feed.url),{signal:AbortSignal.timeout(9000)});
+    const data=await r.json();
+    if(data.status!=='ok'||!Array.isArray(data.items))return[];
+    return data.items.map(item=>{
+      const combo=(item.title||'')+' '+(item.description||'')+' '+(item.content||'');
+      if(!isRelevant(combo))return null;
+      // grab best image: thumbnail > enclosure > og-style image in content
+      let thumb=item.thumbnail||item.enclosure?.link||null;
+      if(!thumb){const m=(item.content||'').match(/src="(https:\/\/[^"]+\.(jpg|jpeg|png|webp)[^"]*)"/i);if(m)thumb=m[1];}
+      return{
+        title:(item.title||'').replace(/&amp;/g,'&').replace(/&#8217;/g,"'").replace(/&#8230;/g,'…').replace(/<[^>]+>/g,'').trim(),
+        summary:strip(item.description||item.content||''),
+        link:item.link||'#',
+        pubDate:item.pubDate,
+        category:classify(combo),
+        countries:getCountries(combo),
+        source:feed.src,
+        thumb,
+      };
+    }).filter(Boolean);
+  }catch{return[];}
+}
+
+// ── STATE ──────────────────────────────────────────────────────────────────
+let allItems=[];
+let activeFilter='all';
+
+function setF(f,btn){
+  activeFilter=f;
+  document.querySelectorAll('.fp').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  render();
+}
+
+// ── RENDER ─────────────────────────────────────────────────────────────────
+function render(){
+  const out=document.getElementById('newsOut');
+  const items=activeFilter==='all'?allItems:allItems.filter(i=>i.category===activeFilter);
+  if(!items.length){
+    out.innerHTML='<div class="empty"><div class="empty-txt">No stories in this category right now.</div></div>';
+    return;
+  }
+  const now=new Date();
+  const timeStr=now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'});
+  const dateStr=now.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'});
+
+  let html=`<div class="meta-bar"><span class="meta-count">${items.length} stories</span><span class="meta-time">Fetched ${timeStr} · ${dateStr}</span></div>`;
+
+  // Hero
+  const[hero,...rest]=items;
+  const heroImg=hero.thumb||unsplash(hero.category,0);
+  html+=`
+  <div class="hero-card" onclick="window.open('${hero.link}','_blank')">
+    <div class="hero-body">
+      <div class="tag-row" style="margin-bottom:14px">${buildTags(hero)}</div>
+      <div class="hero-title">${hero.title}</div>
+      <div class="hero-summary">${hero.summary}</div>
+      <div class="hero-foot">
+        <span class="hero-source">${hero.source}</span>
+        <span class="hero-date">${fmtDate(hero.pubDate)}</span>
+      </div>
+    </div>
+    <div class="hero-img-col">
+      <div class="hero-img-fade"></div>
+      <img class="hero-img" src="${heroImg}" alt="" loading="lazy"
+        onerror="this.style.display='none';document.getElementById('hph').style.display='flex'"/>
+      <div class="hero-img-ph" id="hph" style="display:none">${catEmoji(hero.category)}</div>
+    </div>
+  </div>`;
+
+  if(rest.length){
+    html+=`<div class="sec-label">All Stories</div><div class="grid">`;
+    rest.forEach((item,i)=>{
+      const img=item.thumb||unsplash(item.category,i+1);
+      const delay=Math.min((i+1)*0.06,.55)+'s';
+      const phId='ph'+i;
+      html+=`
+      <div class="ncard" style="animation-delay:${delay}" onclick="window.open('${item.link}','_blank')">
+        <div class="img-wrap">
+          <img class="cimg" src="${img}" alt="" loading="lazy"
+            onerror="this.style.display='none';document.getElementById('${phId}').style.display='flex'"/>
+          <div class="img-ph" id="${phId}" style="display:none">${catEmoji(item.category)}</div>
+        </div>
+        <div class="nbody">
+          <div class="tag-row">${buildTags(item)}</div>
+          <div class="ntitle">${item.title}</div>
+          <div class="nsum">${item.summary}</div>
+          <div class="nfoot">
+            <span class="nsource">${item.source}</span>
+            <span class="ndate">${fmtDate(item.pubDate)}</span>
+          </div>
+        </div>
+      </div>`;
+    });
+    html+=`</div>`;
+  }
+  out.innerHTML=html;
+}
+
+// ── LOAD ───────────────────────────────────────────────────────────────────
+async function loadFeed(){
+  const btn=document.getElementById('fetchBtn');
+  const icon=document.getElementById('btnIcon');
+  const lbl=document.getElementById('btnLabel');
+  const prog=document.getElementById('progFill');
+  const out=document.getElementById('newsOut');
+  const empty=document.getElementById('emptyState');
+
+  btn.disabled=true;
+  icon.outerHTML='<span class="spinner" id="btnIcon"></span>';
+  lbl.textContent='Fetching feeds…';
+  empty.style.display='none';
+  out.innerHTML='<div class="empty"><div class="empty-txt" id="loadTxt">Scanning TechCabal, BBC Africa, GSMA &amp; more…</div></div>';
+
+  const msgs=['Scanning TechCabal, BBC Africa, GSMA & more…','Filtering for fintech & telecom signals…','Classifying stories by market…','Compiling your brief…'];
+  let mi=0;
+  const msgT=setInterval(()=>{mi++;const el=document.getElementById('loadTxt');if(el&&mi<msgs.length)el.textContent=msgs[mi];},2000);
+
+  let p=0;
+  const progT=setInterval(()=>{p=Math.min(p+4,84);prog.style.width=p+'%';},280);
+
+  try{
+    const results=await Promise.allSettled(FEEDS.map(f=>fetchFeed(f)));
+    let items=[];
+    results.forEach(r=>{if(r.status==='fulfilled')items=items.concat(r.value);});
+
+    // Deduplicate
+    const seen=new Set();
+    items=items.filter(item=>{
+      const key=item.title.slice(0,50).toLowerCase().replace(/\s+/g,'');
+      if(seen.has(key))return false;
+      seen.add(key);
+      return true;
+    });
+
+    // Sort newest first
+    items.sort((a,b)=>new Date(b.pubDate)-new Date(a.pubDate));
+    allItems=items.slice(0,30);
+
+    clearInterval(msgT);clearInterval(progT);
+    prog.style.width='100%';
+    setTimeout(()=>prog.style.width='0%',700);
+
+    if(!allItems.length){
+      out.innerHTML=`<div class="err-box">
+        No relevant stories could be loaded right now. This usually means the RSS proxy is temporarily throttled.<br/><br/>
+        <strong>Try again in 30 seconds</strong>, or check these sources directly:<br/><br/>
+        <a href="https://techcabal.com" target="_blank">TechCabal</a> · 
+        <a href="https://disrupt-africa.com" target="_blank">Disrupt Africa</a> · 
+        <a href="https://www.theafricareport.com" target="_blank">The Africa Report</a>
+      </div>`;
+      resetBtn();return;
+    }
+
+    document.getElementById('statsBar').style.display='grid';
+    document.getElementById('sTotal').textContent=allItems.length;
+    document.getElementById('sComp').textContent=allItems.filter(i=>i.category==='competition').length;
+    document.getElementById('sOpp').textContent=allItems.filter(i=>i.category==='opportunities').length;
+
+    render();
+  }catch(err){
+    clearInterval(msgT);clearInterval(progT);
+    prog.style.width='0%';
+    out.innerHTML=`<div class="err-box">Could not load feeds. Check your internet connection and try again.<br/><small style="opacity:.5">${err.message}</small></div>`;
+  }
+  resetBtn();
+}
+
+function resetBtn(){
+  document.getElementById('fetchBtn').disabled=false;
+  const icon=document.getElementById('btnIcon');
+  if(icon)icon.outerHTML='<span id="btnIcon">⚡</span>';
+  document.getElementById('btnLabel').textContent='Refresh Brief';
+}
+</script>
+</body>
+</html>
